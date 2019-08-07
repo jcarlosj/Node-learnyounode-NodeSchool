@@ -1,13 +1,16 @@
 /** NodeSchool.io */
 
-/** 2. Escribe un programa que reciba uno o más números como argumentos de la
- *     consola e imprima la suma de dichos números a consola (stdout).
+/** 3. Escribe un programa que, usando una llamada síncrona al sistema de
+ *     archivos, lea un archivo recibido por argumento e imprima a consola la
+ *     cantidad de saltos de línea ('\n') que contiene. 
+ * 
+ *     Similar a ejecutar cat file | wc -l
+ *          $ cat index.html | wc -l
+ * 
+ *     El programa recibirá la ruta al archivo como único argumento.
 */
-let suma = 0;
-console .log( process .argv );
+const fs = require( 'fs' )
+      buffer = fs .readFileSync( './index.html', 'utf8' ),
+      lineas = buffer .match( /\r?\n/g ) || '';
 
-for( let i = 2; i < process .argv .length; i++ ) {
-    suma += Number( process .argv[ i ] );
-}
-
-console .log( suma );   // 329    Al ejecutar: $ node program.js 8 34 14 56 74 34 11 32 51 15
+console .log( lineas .length );     // 11
