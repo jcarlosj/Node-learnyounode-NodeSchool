@@ -1,25 +1,31 @@
 /** NodeSchool.io */
 
-/** 4. Escribe un programa que, usando una llamada asíncrona al sistema de
- *     archivos, lea un archivo recibido por argumento e imprima a consola la
- *     cantidad de saltos de línea ('\n') que contiene. 
+/** 5.  Crea un programa que dado un directorio imprima una lista de archivos
+ *      filtrados por la extensión. El primer argumento será la ruta al directorio
+ *      (ej: '/path/dir/') y el segundo la extensión a filtrar, por ejemplo si
+ *      recibes 'txt' deberás filtrar todos los archivos que terminen en .txt.
  * 
- *     Similar a ejecutar cat file | wc -l
- *          $ cat index.html | wc -l
+ *      Nota: el segundo argumento no incluye el punto '.'.
  * 
- *     El programa recibirá la ruta al archivo como único argumento.
+ *      La lista de archivos a imprimir en consola debe hacerse un archivo por
+ *      línea y debes utilizar Async I/O.
 */
-const fs = require( 'fs' )
+const fs = require( 'fs' ),
+      path = require( 'path' ),
+      EXT = '.txt';
       
-fs .readFile( './index.html', ( error, buffer ) => {
-    const strFile = buffer .toString();
+fs .readdir( './', ( error, listFiles ) => {
+    console .log( listFiles );     
 
-    if( error ) {
-        throw error;
-    }
+    listTxtFiles = listFiles. filter( file => {
+        return path .extname( file ) .toLowerCase() === EXT;
+    });
 
-    lineas = strFile .match( /\r?\n/g ) || '';
+    console .log( listTxtFiles );
+    
+    listTxtFiles .forEach( file => {
+        console .log( file );
+    });
 
-    console .log( lineas .length );     // 11
-});
-      
+
+});    
