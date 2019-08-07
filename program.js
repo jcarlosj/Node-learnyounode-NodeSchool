@@ -1,6 +1,6 @@
 /** NodeSchool.io */
 
-/** 3. Escribe un programa que, usando una llamada síncrona al sistema de
+/** 4. Escribe un programa que, usando una llamada asíncrona al sistema de
  *     archivos, lea un archivo recibido por argumento e imprima a consola la
  *     cantidad de saltos de línea ('\n') que contiene. 
  * 
@@ -10,7 +10,16 @@
  *     El programa recibirá la ruta al archivo como único argumento.
 */
 const fs = require( 'fs' )
-      buffer = fs .readFileSync( './index.html', 'utf8' ),
-      lineas = buffer .match( /\r?\n/g ) || '';
+      
+fs .readFile( './index.html', ( error, buffer ) => {
+    const strFile = buffer .toString();
 
-console .log( lineas .length );     // 11
+    if( error ) {
+        throw error;
+    }
+
+    lineas = strFile .match( /\r?\n/g ) || '';
+
+    console .log( lineas .length );     // 11
+});
+      
